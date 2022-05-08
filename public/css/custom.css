@@ -1,0 +1,16 @@
+body{
+display: flex;
+flex-direction: column;
+height: 100vh;
+}
+footer {
+    margin-top: auto;
+}
+
+/*Font_Size*/
+.fs-12px{ font-size: 12px; }
+.fs-14px{ font-size: 14px; }
+
+.text-star { color: #bdbdbd !important; }
+
+.cursor-pointer{ cursor: pointer; }
