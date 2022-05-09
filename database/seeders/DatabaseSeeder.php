@@ -14,6 +14,13 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // \App\Models\User::factory(10)->create();
+        DB::table('users')->insert([
+            'name' => 'Maya Stella',
+            'email' => 'maya_stella_assis@mixfmmanaus.com.br'
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Esther Milena',
+            'email' => 'esther_milena@lucaslima.com'
+        ]);
     }
 }

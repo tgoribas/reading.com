@@ -8,6 +8,7 @@
         <x-alert class="danger" msg="Desculpe, tivemos um problema para remover seu livro"></x-alert>
     @endif
 
+    @if($books != null)
     <div class="container">
         <ul class="nav nav-pills">
         <li class="nav-item">
@@ -50,5 +51,11 @@
             </div>
         </div>
     </div>
+    @else
+    <div class="container">
+        <h3 class="text-danger text-center">Você ainda não tem nenhum livro cadastrado</h3>
+        <p class="text-center mt-4"><a href="/adicionar" class="btn btn-danger btn-lg">Adicionar Livro</a></p>
+    </div>
+    @endif
 
 </x-layout>

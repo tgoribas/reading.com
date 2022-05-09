@@ -17,42 +17,47 @@ class BookController extends Controller
     { 
         // Faz o SELECT dos livros do usuario
         $userBook = UserBook::query()->orderBy('dateStart','DESC')->get();
-
-        foreach ($userBook as $book) {
-            // URL DA API
-            $urlAPI = 'https://www.googleapis.com/books/v1/volumes/'. $book->idGoogle;
-
-            //CURL INIT
-            $curl = curl_init($urlAPI);
-            curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
-
-            //$html armazena o conteúdo da requisição
-            $html = curl_exec($curl);
-
-            if (curl_error($curl)) { die(curl_error($curl)); }
-
-            // Check for HTTP Codes
-            $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-            //CURL END
-
-            if ($status == 200) {
-                $json = json_decode($html, true);
-                curl_close($curl);
-                // Prepara as variaveis com o livro.
-                $books[] = [
-                    'id'        => $book->id,
-                    'title'     => $json['volumeInfo']['title'],
-                    'authors'   => $json['volumeInfo']['authors'][0],
-                    'pages'     => $json['volumeInfo']['pageCount'],
-                    'published' => $json['volumeInfo']['publishedDate'],
-                    'image'     => ($json['volumeInfo']['imageLinks']) ? $json['volumeInfo']['imageLinks']['smallThumbnail'] : '',
-                    'rating'    => $book->rating,
-                    'dateStart' => Carbon::createFromFormat('Y-m-d', $book->dateStart)->format('d/m/Y'),
-                    'dateEnd'   => ($book->dateEnd != null) ? Carbon::createFromFormat('Y-m-d', $book->dateEnd)->format('d/m/Y'): '',
-                    'status'    => ($book->dateEnd != null) ? 'finalizado' : 'pendente'
-                ];
+        // echo ;
+        if(count($userBook)>0) {
+            foreach ($userBook as $book) {
+                // URL DA API
+                $urlAPI = 'https://www.googleapis.com/books/v1/volumes/'. $book->idGoogle;
+    
+                //CURL INIT
+                $curl = curl_init($urlAPI);
+                curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+    
+                //$html armazena o conteúdo da requisição
+                $html = curl_exec($curl);
+    
+                if (curl_error($curl)) { die(curl_error($curl)); }
+    
+                // Check for HTTP Codes
+                $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
+                //CURL END
+    
+                if ($status == 200) {
+                    $json = json_decode($html, true);
+                    curl_close($curl);
+                    // Prepara as variaveis com o livro.
+                    $books[] = [
+                        'id'        => $book->id,
+                        'title'     => $json['volumeInfo']['title'],
+                        'authors'   => $json['volumeInfo']['authors'][0],
+                        'pages'     => $json['volumeInfo']['pageCount'],
+                        'published' => $json['volumeInfo']['publishedDate'],
+                        'image'     => ($json['volumeInfo']['imageLinks']) ? $json['volumeInfo']['imageLinks']['smallThumbnail'] : '',
+                        'rating'    => $book->rating,
+                        'dateStart' => Carbon::createFromFormat('Y-m-d', $book->dateStart)->format('d/m/Y'),
+                        'dateEnd'   => ($book->dateEnd != null) ? Carbon::createFromFormat('Y-m-d', $book->dateEnd)->format('d/m/Y'): '',
+                        'status'    => ($book->dateEnd != null) ? 'finalizado' : 'pendente'
+                    ];
+                }
             }
+        } else {
+            $books = null;
         }
+
         return view('books.index', compact('books'));
     }
 
