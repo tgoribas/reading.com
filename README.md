@@ -4,12 +4,13 @@
 Desafio para criar o IMDB dos livros.
 
 ## 💻 Tecnologias Usadas
-- PHP 8.1.5
 - Laravel Framework 9.11.0
 - HTML
+- Bootstrap
 - CSS
 - Javascript
 - Mysql
+- Google Books API
 
 ## 🚀 Instalação
 Para realizar a instalação do projeto siga esses passos.
@@ -28,8 +29,6 @@ composer update
 ```
 php artisan key:generate
 ```
-
-
 #### Arquivo .env
 Renomear o arquivo `.env.exemple` para `.env` e fazer a configuração das variaveis se necessario.
 
@@ -51,7 +50,7 @@ php artisan db:seed
 ```
 
 ## 🔌 Executar Projeto
-Para executar o projeto iniciar o servidor com o seguinte codigo.
+Para executar o projeto iniciamos o servidor com o seguinte comando.
 ```
 php artisan serve
 ```
