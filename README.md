@@ -50,6 +50,14 @@ php artisan migrate
 php artisan db:seed
 ```
 
+## 🔌 Executar Projeto
+Para executar o projeto iniciar o servidor com o seguinte codigo.
+```
+php artisan serve
+```
+Depois acessar a url `http://127.0.0.1:8000`
+
+
 ## ⏳ Ajustes e melhorias
 Funcionalidades para serem adicionadas
 - [ ] Botão terminar livro
